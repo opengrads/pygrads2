@@ -1,0 +1,21 @@
+                         PyGrADS Superpack for MS Windows(tm)
+
+You are about to install Python and all necessary packages for running PyGrADS on your computer. In the next dialog, uncheck any package that you wish not to install.
+
+This installation is intended as a convenience for first time Python users. The package versions included here may not be the very latest ones. You are advised to visit the website for each package updating them as you see fit; see URLsm below. Be advised that there is no single uninstall. You will need to uninstall each package individually from the Control Panel. 
+
+Remember that there is no warranty of any kind and that you are doing this installation at your own risk. License information is available with the installation of each package.
+
+Basemaps: http://www.scipy.org/Cookbook/Matplotlib/Maps
+HTTPlib2: http://code.google.com/p/httplib2/
+IPython: http://ipython.scipy.org/moin/
+Matplotlib: http://matplotlib.sourceforge.net/
+NumPy: http://numpy.scipy.org/ 
+OpenGrADS: http://opengrads.org
+PIL: http://www.pythonware.com/products/pil/
+PyGrADS: http://opengrads.org/wiki/index.php?title=Python_Interface_to_GrADS
+PyReadline: http://ipython.scipy.org/moin/PyReadline/Intro
+Python: http://www.python.org
+PyWin32: https://sourceforge.net/projects/pywin32/
+
+  

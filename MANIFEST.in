@@ -1,0 +1,8 @@
+include README INSTALL COPYING NEWS ChangeLog MANIFEST MANIFEST.in
+include examples/*.py examples/*.jpg
+include grads/data/*.jpg
+include tests/Makefile.* tests/*.py tests/*.gs tests/*.sh
+include data/*
+include scripts/*.py scripts/*.bat scripts/*.ico
+
+

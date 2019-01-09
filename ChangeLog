@@ -1,0 +1,138 @@
+	ChangeLog for PyGrADS
+	---------------------
+2016-03-21 Arlindo da Silva <dasilva@opengrads.org>, Version 1.2.0
+	* galab.py: small tweak so that clines and cmap can both be
+	  specified; implemented projection "geos_" as a small
+ 	  variation on "geos". Moved sample methods to ganum. 
+	* ganum.py: now eof() method handles undefs. Includes interp()
+	  function from basemap here to avoid dependency. Moved sample
+	  methods previously in galab to here.
+	* gacore.py: now cmd() method can do string interpolation.
+	
+2014-11-21 Arlindo da Silva <dasilva@opengrads.org>, Version 1.1.10
+	* gacore.py: bug fix where if one queries ctlinfo and tries to
+    	  obtain the xlevs and ylevs information from the ctl file, it 
+	  does not return that info; contributed by Rahul Mahajan.
+	* galab.py: handle change of behavior in matplotlib 1.2 where
+	  pil_to_array() now returns an upsidedown array.
+
+2014-05-18 Arlindo da Silva <dasilva@opengrads.org>, Version 1.1.9
+	* Maintenance release.
+	* galab: now basemap resolution and area_thresh have sticking
+	  defaults; changed spelling: area_tresh -> area_thresh.
+	* gacm: a few opaque log-scale color maps
+	
+2013-01-28 Arlindo da Silva <dasilva@opengrads.org>, Version 1.1.8
+	* gacm: removed __call__ method; default works fine; this fixes
+	  issues with new versions of Matplotlib.
+	* galab: now passes **kwopts down to contour so that
+	  ga.contour(x,levels=(-3,-2)) works.
+	* galab: colorbar now can use a new basemap method, if present
+
+2012-12-12 Arlindo da Silva <dasilva@opengrads.org>, Version 1.1.7
+	* Annual refresher release.
+	* Several small bug fixes to interpolation and what not.
+	* gaya is still experimental.
+	* galab has method sampleKML that should interpolate fields
+	  to locations in a KML file produced with Google Maps. 
+	* Known_Issues: gacm still having issues with more recent 
+	  versions of EPD.
+	
+2011-08-08 Arlindo da Silva <dasilva@opengrads.org>, Version 1.1.b5
+	* Beta version: new methods still undergoing tests
+	* gacore.py now uses the subprocess module instead of popen2
+	* pygrads upgraded to work with IPython 0.11; it should be
+	  backward compatible with IPython 0.10.
+	* Introduced method imex() to display graphics buffer on
+	  matplotlib canvas; this is a preliminary implementation
+	  that shold eventually render the plot locally from the
+	  instructions in the grads graphics buffer.
+	* Introduced "tyme" (datetime representation of time)
+	   in GaGrid and query("dims") handle.
+	* added methods gat2dt() and dt2gat() for converting 
+	  between datetime and grads time representations
+	* added method sampleXYT for (lat,lon,time) interpolation.
+	
+2010-06-25 Arlindo da Silva <dasilva@opengrads.org>, Version 1.1.4
+	* gacore/ganum: fixed undef issue with expr() method.
+ 	
+2010-02-20 Arlindo da Silva <dasilva@opengrads.org>, __Version 1.1.4__
+	* gacore:  added query("ctlinfo"), partial.
+ 	
+2009-11-02 Arlindo da Silva <dasilva@opengrads.org>, __Version 1.1.4__
+	* gacore:  added handling of .nc4 and .xtl in open()
+	
+2009-07-30 Arlindo da Silva <dasilva@opengrads.org>, Version 1.1.3
+	* galab:
+	  - commented out "if isinteractive(): show" as it was 
+	    blocking on Mac OS X
+	  - fixing bugs in interp()
+
+2009-05-10 Arlindo da Silva <dasilva@opengrads.org>, Version 1.1.2
+	* gacore: 
+	  - revised e-dimension support so that it returns a
+	    valid e-dimension environment even with GrADS v1.x
+	  - P. Romero intrduced ga.query("time") method.
+	* query: 
+	  - added bracketing index attributes (dh.xi,dh.yi,...)
+	  - added query("udct") and query("udft")
+	* cmd: generalized so that we can provide a single command
+	  or a list of commands separated by a newline ('\n')
+	* pygrads: GrADS binary now defaults to "grads".
+	
+2009-03-21 Mike Fiorino <fiorino@opengrads.org>, Version 1.1.1
+	* added support for 5th dimension in gacore for grads2.0
+	
+2009-01-25 Arlindo da Silva <dasilva@opengrads.org>, Version 1.1.x
+	* Fixed usage of user specific blue marble
+
+2008-09-06 Arlindo da Silva <dasilva@opengrads.org>, Version 1.1.0
+	* Updated for Matplotlib 0.98; should work with older versions as well
+	* gacore: 
+	  - added eval() and coords() methods 
+	  - several updates to query() to provide an easier way to 
+	    iterate over variables (by Daniel)
+	  - add attributes HAS_UDXT/HAS_IPC 
+	  - hooks for Jython and Matlab interface: jquery()/jcoords()
+	  - GaHandle is now on a separate module file
+	* ganum: added get() method based on eval()
+	* galab: 
+	  - in _imshow(), reset lat longitude to -180 when departure
+ 	    from it is very small (because of round off errors); 
+	    this is necessary to keep the map.transform code from
+	    raising an exception.
+	  - added method interp() to interpolated gridded fields to
+	    "observation locations" (lon/lat for now); use this for
+	    curtain plots.
+          - added method expr() which does not require IPC extension
+	  - if IPC is not available exp() reverts to expr(), and imp()
+	    raises an exception (rather than lock up); with this it
+	    now works with grads v2.0.a3 or later
+	* ipygrads - fixed bug in "ii" shortcut
+	
+2008-02-14 Arlindo da Silva <dasilva@opengrads.org>, Version 1.0.8
+	* Adjustments for running under Windows with native (non-cygwin) 
+	  Python
+	* examples: No longer imports basemap.cm as it breaks older versions
+	* gacm: added argument "bytes" to ColormapAlpha for compatibility
+	with newer Matplotlib.
+	
+2008-01-28 Arlindo da Silva <dasilva@opengrads.org>, Version 1.0.7
+	* Documentation touch up for sf.net distribution
+
+2008-01-01 Arlindo da Silva <dasilva@opengrads.org>, Version 1.0.6
+	* Converted to a python "package"
+	* Introduced galab (pylab/matplotlib interface)
+	* Introduced gacm (color tables)
+	* Introduced handling of missing values with masking (ma, array's)
+	* Split off ganum.py from grads.py; now graads.py is so vanilla 
+	  that may run under Jython. 
+	* Removed SciPy dependency
+
+2007-11-08 Arlindo da Silva <dasilva@opengrads.org>, Version 1.0.4
+	* Added NumPy interface
+	* Introduced pytests
+
+2006-03-18 Arlindo da Silva <dasilva@opengrads.org>
+	* First experimental version with no data exchange with GrADS
+	

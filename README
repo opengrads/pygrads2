@@ -1,0 +1,136 @@
+=====================================
+PyGrADS - A Python Interface to GrADS
+=====================================
+
+Author:
+   Arlindo da Silva <dasilva@opengrads.org>
+License:
+   GNU Public License Version 2
+
+Overview
+========
+
+This package implements a Python_ interface to GrADS_ by means of
+bi-directional pipes. The following modules are provided:
+
+gacore 
+  The module *gacore* provides the basic GrADS client class which
+  allows you to start GrADS, send commands to it and to retrieve the
+  text output produced by *grads* in response to such command. This is
+  a Pure Python module, although it requires the GrADS binaries to
+  have been installed on your system.
+
+ganum 
+  If you have NumPy installed, the module *ganum* will be loaded.
+  This module extends the GrADS client class in *gacore* by providing
+  methods for exchanging n-dimensional NumPy array data between Python
+  and GrADS. It also provides methods for computing EOF and least
+  square estimation.
+
+galab 
+  If PyLab/Matplotlib/Basemap is available, the module *galab* is
+  loaded.  This module adds Matplotlib/Basemap specific methods for
+  contours, images and other graphical functionality. This class
+  provides high level methods operating directly on GrADS expressions
+  (or *fields*) while retaining all the configurability that
+  Matplotlib has to offer.
+
+gaya 
+  If MayaVi is available, the module *gaya* is loaded. This module
+  adds MayaVi specific methods for 3D visualization. As in *galab*,
+  the main design philosophy is to use the GrADS dimension environment
+  to derive sensible defaults for the high level graphical commands,
+  while retaining most of MayaVi configurability.
+
+gahandle
+  This module provides a simple container class to collect output for 
+  query() operations.
+
+gacm
+  This modules provides additional colormaps, as well as an extension
+  of the *Colormaps* class which allows for the definition of color
+  look-up takes with an alpha channel. It also extends the
+  *LinearSegmentedColormap* with the ability of create derived color
+  tables which are either reversed or provide an arbitrary scaling by
+  means of a lambda function.
+
+numtypes 
+  This module defines GaField, a class for representing GrADS
+  variables in Python. It consists of a NumPy masked array with a
+  *grid* containing coordinate/dimension information attached to it.
+
+pygrads 
+  The script *pygrads* is a wrapper script which starts IPython
+  with a number of aliases and customizations convenient for
+  interactive GrADS work. In particular, it starts PyLab bringing
+  together all the GrADS and Matplotlib capabilities, if available.
+
+For additional information consult the PyGrADS_ documentation.
+
+
+Requirements
+============
+
+This release has been verified to work with the Enthought Python
+Distribution (EPD) Version 7.1-2, althought it should also work with a
+generic python distribution.The actual packages needed depends on the
+functionality that you require:
+
+gacore
+  For the basic features in *gacore* you only need Python_ or Jython_. I've
+  tested it on C Python v2.3 and newer, but it may work in older
+  versions as well. It also runs on Jython v2.2. There is some chance that 
+  *gacore* works with IronPython as well, but I haven't tested it yet.
+  
+ganum
+  You will need NumPy_. This module does not work with Jython_.
+
+galab
+  This requires Pylab and Matplotlib_, in addition to the Basemap_
+  toolkit. For working with images you would need PIL_, the Python
+  Imaging Library. This module does not work with Jython_.
+ 
+gaya
+  Requires MayaVi and all the requirements for *galab*.
+
+gacm
+  Same dependencies of *galab*, but now PIL_ is required. This module
+  does not work with Jython_.
+
+pygrads, ipygrads
+  The script *pygrads* is a wrapper around IPython_, so you will need to
+  install it first. The module *ipygrads* implements some *magic 
+  commands* for IPython providing convenient shorthands for interactive
+  grads work. This module does not work with Jython_ v2.2 because IPython
+  is not available (but possibly will in Jython v2.5).
+
+When you import package *grads* the following attributes are defined,
+depending on which of the modules were successfully imported:
+HAS_GALAB, HAS_GANUM, HAS_GACM. An *ImportError* exception will be
+raised if *gacore* cannot be imported. See `Useful Links` below for
+the URL of the required packages. 
+
+Useful Links
+============
+
+.. _Basemaps: http://www.scipy.org/Cookbook/Matplotlib/Maps
+.. _GrADS: http://grads.iges.org/grads
+.. _Installation: http://docs.python.org/inst/inst.html
+.. _IPython: http://ipython.scipy.org/moin/
+.. _Jython: http://www.jython.org/
+.. _Matplotlib: http://matplotlib.sourceforge.net/
+.. _NumPy: http://numpy.scipy.org/ 
+.. _OpenGrADS: http://opengrads.org
+.. _PIL: http://www.pythonware.com/products/pil/
+.. _PyGrADS: http://opengrads.org/wiki/index.php?title=Python_Interface_to_GrADS
+.. _Python: http://www.python.org
+  
+Installation
+============
+
+See file INSTALL.
+
+License Terms
+=============
+
+See file COPYING.

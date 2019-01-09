@@ -1,0 +1,191 @@
+#!/usr/bin/env python
+
+"""An interactive GrADS shell based on iPython. It requires module
+"grads" (interface to GrADS executable via bi-directional pipes) and
+module "ipygrads" (iPython shortcuts through definition of convenient
+magic commands). The command line interface supports most of the
+command line arguments of the classic GrADS. For more information
+type
+
+   pygrads -h
+
+This version requires IPython 0.11 or later.
+
+"""
+
+import os
+import sys
+import IPython
+
+from string        import *
+from optparse      import OptionParser   # Command-line args  
+
+try:
+    import matplotlib # don't import pylab directly
+    has_pylab = True
+except:
+    has_pylab = False
+
+try:
+    import IPython.ipapi                  # IPython 0.10 and earlier
+    IPY_LEGACY = True
+except:
+    IPY_LEGACY = False                    # IPython 0.11 and later
+
+#---------------------------------------------------------------------
+
+print ""
+print "  Welcome to PyGrADS, a GrADS-based iPython environment. "
+print ""
+
+# Parse command line options
+parser = OptionParser(usage="Usage: %prog [options] [files_to_open]",
+                      version='pygrads-1.1.0' )
+
+parser.add_option("-x", "--binary", dest="gabin", default='grads',
+                  help="path to grads binary (default=grads)" )
+
+parser.add_option("-C", "--classic", dest="gabin", default='grads',
+                  action="store_const", const='gradsc',
+                  help="starts GrADS classic (gradsc)" )
+
+parser.add_option("-D","--dap", dest="gabin", default='grads',
+                  action="store_const", const='gradsdap',
+                  help="starts GrADS DODS (gradsdap)" )
+
+parser.add_option("-d","--dods", dest="gabin", default='grads',
+                  action="store_const", const='gradsdods',
+                  help="starts GrADS with OPeNDAP (gradsdods)" )
+
+parser.add_option("-H","--hdf4", dest="gabin", default='grads',
+                  action="store_const", const='grads',
+                  help="starts GrADS HDF-4 (gradshdf)" )
+
+parser.add_option("-n","--nc", dest="gabin", default='grads',
+                  action="store_const", const='gradsnc4',
+                  help="starts GrADS NetCDF (gradsnc4)" )
+
+parser.add_option("-N","--nc4", dest="gabin", default='grads',
+                  action="store_const", const='gradsnc',
+                  help="starts GrADS NetCDF (gradsnc" )
+
+parser.add_option("-b", "--batch",
+                  action="store_true", dest="batch", default=False,
+                  help="start GrADS in batch mode")
+
+parser.add_option("-c", "--command", dest="gacmd", default='',
+                  help="run a GrADS command on startup (e,g., a script)" )
+
+parser.add_option("-g", "--geometry", dest="geom", default='',
+                  help="set size of graphics window, e.g., 800x600" )
+
+parser.add_option("-l", "--landscape",
+                  action="store_false", dest="port", default=False,
+                  help="start GrADS in landscape mode")
+
+parser.add_option("-m", "--metasize", dest="N", default='',
+                  help="set metafile buffer size to N" )
+
+parser.add_option("--nopylab",
+                  action="store_false", dest="pylab", default=has_pylab,
+                  help="start iPython without pylab")
+
+parser.add_option("--qt_inline",  
+                  action="store_true", dest="inline", default=False,
+                  help="starts qt console with inline graphics ")
+
+parser.add_option("-p", "--portrait",
+                  action="store_true", dest="port", default=False,
+                  help="start GrADS in portrait mode")
+
+parser.add_option("-q", "--qt",
+                  action="store_true", dest="qt", default=False,
+                  help="starts the qt console")
+
+parser.add_option("-W", "--wideline",
+                  action="store_true", dest="port", default=False,
+                  help="use X server wide lines (faster) instead of s/w (better)")
+
+parser.add_option("-X", "--xmode",
+                  dest="xmode", default='Plain',
+                  help="""Mode for exception reporting. The valid modes are Plain, Context, and Verbose. 'Plain' similar to python's normal traceback printing.
+'Context' prints 5 lines of context source code around each line in the traceback. 'Verbose' is similar to Context, but additionally prints the variables
+currently visible where the exception happened (shortening their
+strings if too long). Default is 'Plain'.""")
+
+(options, filenames) = parser.parse_args()
+
+if options.inline:
+    options.qt = True
+    
+# Form GrADS command line
+gaopt = ''
+if options.batch:          gaopt = '-b '
+if options.geom  != '':    gaopt = gaopt+"-g "+options.geom+" "
+if options.port == False:  gaopt = gaopt+'-l '
+else:                      gaopt = gaopt+'-p '
+
+# Define parameters to instantiate GrADS further down
+# Note: global variables do not quite work for this, 
+# hence environment vars 
+os.environ['GA_BIN'] = options.gabin
+os.environ['GA_CMD'] = options.gacmd
+os.environ['GA_OPT'] = gaopt
+os.environ['GA_FIL'] = join(filenames,sep=' ')
+
+# IPython 0.10 & earlier
+# ----------------------
+if IPY_LEGACY:
+
+    if options.pylab:
+        sys.argv = ['pygrads','-pylab','-nobanner',
+                    '-noconfirm_exit','-xmode', options.xmode,
+                    '-prompt_in1', ' [\#] ga-> ',
+                    '-i','-c',"from ipygrads import *"]
+    else:
+        sys.argv = ['pygrads','-nobanner',
+                    '-noconfirm_exit', '-xmode', options.xmode,
+                    '-prompt_in1', ' [\#] ga-> ',
+                    '-i','-c',"from ipygrads import *"]
+
+    IPython.Shell.start().mainloop()
+
+# IPython 0.11 & later
+# --------------------
+else:
+    
+    if options.qt:
+
+        sys.argv = [ 'pygrads', '--no-confirm-exit' ]
+
+        if options.pylab:
+            sys.argv.append('--pylab')
+
+        sys.argv += [ '--InteractiveShell.xmode=%s'%options.xmode,
+                      '--IPythonWidget.in_prompt="[<span class=in-prompt-number>%i</span>] ga-> "',
+                      '--c="from ipygrads import *"',
+                    ]
+
+        if options.inline:
+            sys.argv.append('--pylab=inline')
+
+    else:
+        sys.argv = [ 'pygrads', '--no-banner', '--no-confirm-exit', '--i', ]
+        
+        if options.pylab:
+            sys.argv.append('--pylab')
+
+            sys.argv += [ '--InteractiveShell.xmode=%s'%options.xmode, 
+                          '--TerminalInteractiveShell.prompt_in1=" [\#] ga-> "',
+                          '--c="from ipygrads import *"'
+                        ]
+
+
+    if options.qt:
+        from IPython.frontend.qt.console.qtconsoleapp import main
+        sys.exit(main())
+    else:
+        from IPython.frontend.terminal import ipapp
+        ipapp.launch_new_instance()
+
+

@@ -1,0 +1,66 @@
+=====================================
+PyGrADS - A Python Interface to GrADS
+=====================================
+
+Author:
+   Arlindo da Silva <dasilva@opengrads.org>
+License:
+   GNU Public License Version 2
+
+Version 1.1.9 of 2014-05-18
+---------------------------
+Minor maintenance release, see ChangeLog.
+
+Bugs fixes in galab, gacm. See ChangeLog for details.
+Version 1.1.8 of 2013-01-28
+---------------------------
+Bugs fixes in galab, gacm. See ChangeLog for details.
+
+Version 1.1.7 of 2012-12-12
+---------------------------
+Annual refresher release with several bug fixes.
+
+Version 1.1.b5 of 2011-0707
+---------------------------
+Updated to work with IPython 0.11. It now uses the *subprocess* module 
+instead of popen2. New methods still undergoing tests.
+
+Version 1.1.4 of 2010-06-25
+---------------------------
+Fixed UNDEF issue with expr() method, added query('ctlinfo')
+
+Version 1.1.3 of 2009-10-01
+---------------------------
+Minor bug fixes, in particular the interp() method.
+
+Version 1.1.2 of 2009-05-10
+---------------------------
+
+   This is pretty much a bugfix release of PyGrADS. It includes a
+better handling of the e-dimension under GrADS v2.0, returning a
+single e-dimension under GrADS v1.x. It also includes teh
+ga.query("time") method which returns both GrADS and Unix time
+representations. The default GrADS binary is now "grads" instead of
+"gradshdf". Recall that under GrADS v2.0.a5.oga.5 and v1.10.r2.oga
+"grads" includes support for most data formats, including OpenGrADS.
+
+IMPORTANT: Do not use the new colorized text option in GrADS (-C option)
+           with PyGrADS as it will confuse the parser.
+
+   It is strongly recommended that you use GrADS 2.0.oga.5 or later
+for a fully functional PyGrADS under GrADS v2.0, including the exp()
+and imp() methods. If you are still using the Legacy GrADS v1.x
+releases, it is recommended that you upgrade to the GrADS v1.10.r2.oga
+for fully support of the expr() method, something that is essential if
+using tge Java interface under Jython. See the ChangeLog for a complte
+list of bug fixes and new features.
+
+Version 1.1.0 of 2008-09-06
+---------------------------
+
+   This release of PyGrADS supports the new Matplotlib 0.98 API, while
+being compabilitiby with previous versions of Matplotlib.  Exchange of
+data with GrADS v2.0.a3 is now supported with the new method
+expr(). This version has several internal patches to facilitate
+operation under Java/Jython. A separate package *JyGrADS*, based on
+PyGrADS, provides an interface to Java and Matlab through Jython.

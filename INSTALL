@@ -1,0 +1,84 @@
+=====================================
+PyGrADS - A Python Interface to GrADS
+=====================================
+
+Author:
+   Arlindo da Silva <dasilva@opengrads.org>
+License:
+   GNU Public License Version 2
+
+Installation
+------------
+
+If you have administrative privileges, install it the usual way 
+
+::
+     % tar xvfz pygrads-x.y.x.tar.gz
+     % cd pygrads-x.y.z
+     % python setup.py install
+
+As a regular user, install it anywhere you have write permission,
+using the options --prefix or --home to specify the directory base
+name:
+
+::
+     % python setup.py install --prefix=/path/to/some/dir
+
+setting the environment variable PYTHONPATH to point to the location
+of your Python scripts. For example, to install it off your home
+directory:
+
+::
+     % python setup.py install --home=$HOME
+
+In this case, two directories will be created (if they do not exist
+already), and the PyGraDS files installed there:
+
+::
+     $HOME/bin
+         pygrads
+     $HOME/lib/python2.5/site-packages
+         grads/
+         ipygrads.py
+         etc.
+
+(The python2.5 in the directory name above may vary from system to
+system depending on your installed Python version.) For this example,
+you will need set the following environment variables; if using bash
+and variants:
+
+::
+     % export PATH=$HOME/bin:$PATH
+     % export PYTHONPATH=$HOME/lib/python2.5/site-packages:$PYTHONPATH
+
+or with the csh and variants:
+
+::
+     % setenv PATH       $HOME/bin:$PATH
+     % setenv PYTHONPATH $HOME/lib/python2.5/site-packages:$PYTHONPATH
+
+(Do not include $PYTHONPATH after the : if it complains that
+$PYTHONPATH is not defined.)
+
+For additional information, enter
+
+::
+  % python setup.py --help
+
+or check the official Python Module Installation_ page.
+
+Useful Links
+============
+
+.. _Basemaps: http://www.scipy.org/Cookbook/Matplotlib/Maps
+.. _GrADS: http://grads.iges.org/grads
+.. _Installation: http://docs.python.org/inst/inst.html
+.. _IPython: http://ipython.scipy.org/moin/
+.. _Jython: http://www.jython.org/
+.. _Matplotlib: http://matplotlib.sourceforge.net/
+.. _NumPy: http://numpy.scipy.org/ 
+.. _OpenGrADS: http://opengrads.org
+.. _PIL: http://www.pythonware.com/products/pil/
+.. _PyGrADS: http://opengrads.org/wiki/index.php?title=Python_Interface_to_GrADS
+.. _Python: http://www.python.org
+
